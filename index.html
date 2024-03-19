@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJ01</title>
+</head>
+<body>
+    <h1>Notas</h1>
+    <div>
+        <ul >
+          <li>
+            <label>Matemática:</label>
+            <input type="number" id="matematica"/>
+          </li>
+          <li>
+            <label>Lengua:</label>
+            <input type="number" id="lengua"/>
+          </li>
+          <li>
+            <label>EFSI:</label>
+            <input type="number" id="efsi"/>
+          </li>
+          <li class="button">
+            <button onclick="mostrarNotas('matematica', 'lengua', 'efsi')">Enviar</button>
+          </li>
+        </ul>
+        <div id="resultados">
+
+        </div>
+    </div>
+      <script>
+            const mostrarNotas = (matematica, lengua, efsi) => {
+                let notas = ` 
+                <div>
+                    <p>Matematica:${document.getElementById(matematica).value}</p>
+                    <p>Lengua: ${document.getElementById(lengua).value}</p>
+                    <p>EFSI: ${document.getElementById(efsi).value}</p>
+                    <li class="button">
+                        <button onclick="promedio('matematica', 'lengua', 'efsi')">Ver promedio</button>
+                    </li>
+                    <li class="button">
+                        <button onclick="notaMasAlta('matematica', 'lengua', 'efsi')">Ver nota más alta</button>
+                    </li>
+                </div>`
+                document.getElementById("resultados").innerHTML=notas
+                return notas;
+            }
+            
+            const promedio = (matematica, lengua, efsi) => {
+                let matem = parseInt(document.getElementById(matematica).value);
+                let leng = parseInt(document.getElementById(lengua).value);
+                let ef = parseInt(document.getElementById(efsi).value);
+
+                let promedio = (matem + leng + ef) / 3;
+
+                document.getElementById("resultados").innerHTML=`<div>
+                    <p>Promedio: ${promedio} </p>
+                </div>`;
+            }
+
+            const notaMasAlta = (matematica, lengua, efsi) => {
+                let matem = parseInt(document.getElementById(matematica).value);
+                let leng = parseInt(document.getElementById(lengua).value);
+                let ef = parseInt(document.getElementById(efsi).value);
+
+                let max;
+                if(matem>leng&&matem>ef){
+                    max=matem;
+                }else if(leng>matem && leng>ef){
+                    max=leng;
+                }else{max=ef;}
+
+                document.getElementById("resultados").innerHTML=`<div>
+                    <p>La mayor nota fue ${max}</p>
+                </div>`;
+            }
+
+
+        </script>
+    </body>
+</html>
