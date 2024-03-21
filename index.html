@@ -12,7 +12,7 @@
         <ul >
           <li>
             <label>Matemática:</label>
-            <input type="number" id="matematica"/>
+            <input required type="number" id="matematica" />
           </li>
           <li>
             <label>Lengua:</label>
@@ -32,6 +32,7 @@
     </div>
       <script>
             const mostrarNotas = (matematica, lengua, efsi) => {
+                if(validación(matematica,lengua,efsi)==true){
                 let notas = ` 
                 <div>
                     <p>Matematica:${document.getElementById(matematica).value}</p>
@@ -46,7 +47,11 @@
                 </div>`
                 document.getElementById("resultados").innerHTML=notas
                 return notas;
+            
+            } else{
+                console.log("hay campos vacios ")
             }
+        }
             
             const promedio = (matematica, lengua, efsi) => {
                 let matem = parseInt(document.getElementById(matematica).value);
@@ -76,6 +81,27 @@
                     <p>La mayor nota fue ${max}</p>
                 </div>`;
             }
+
+
+            const validación = (matematica, lengua, efsi) => {
+                let matem = document.getElementById(matematica).value;
+                let leng = document.getElementById(lengua).value;
+                let ef = document.getElementById(efsi).value;
+
+                if (matem === "") {
+                    alert("ERROR Por favor, complete el campo requerido");
+                    return false;
+                } else if (leng === ""){
+                    alert("ERROR Por favor, complete el campo requerido");
+                    return false;
+                } else if(ef === ""){
+                    alert("ERROR Por favor, complete el campo requerido");
+                    return false;
+                }
+                
+                return true;
+            }
+
 
 
         </script>
