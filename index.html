@@ -12,15 +12,15 @@
         <ul >
           <li>
             <label>Matemática:</label>
-            <input type="number" id="matematica" onkeypress="validarEdad('matematica')"/>
+            <input type="number" id="matematica" onkeyup="validarEdad('matematica')"/>
           </li>
           <li>
             <label>Lengua:</label>
-            <input type="number" id="lengua" onkeypress="validarEdad('lengua')"/>
+            <input type="number" id="lengua" onkeyup="validarEdad('lengua')"/>
           </li>
           <li>
             <label>EFSI:</label>
-            <input type="number" id="efsi" onkeypress="validarEdad('efsi')"/>
+            <input type="number" id="efsi" onkeyup="validarEdad('efsi')"/>
           </li>
           <li class="button">
             <button onclick="mostrarNotas('matematica', 'lengua', 'efsi')" >Enviar</button>
@@ -35,14 +35,13 @@
             //;
                 var elem;
                 const mostrarNotas = (matematica, lengua, efsi) => {
-                elem = validarEdad();
                 if(validación(matematica,lengua,efsi)==true){
                 
                 let notas = ` 
                 <div>
-                    <p>Matematica:${document.getElementById(matematica).value}</p>
-                    <p>Lengua: ${document.getElementById(lengua).value}</p>
-                    <p>EFSI: ${document.getElementById(efsi).value}</p>
+                    <p id="matem">Matematica:${document.getElementById(matematica).value}</p>
+                    <p id="leng">Lengua: ${document.getElementById(lengua).value}</p>
+                    <p id="ef">EFSI: ${document.getElementById(efsi).value}</p>
                     <li class="button">
                         <button onclick="promedio('matematica', 'lengua', 'efsi')">Ver promedio</button>
                     </li>
@@ -66,9 +65,18 @@
 
                 let promedio = (matem + leng + ef) / 3;
 
+                if (promedio>=6)
+                    {
+                        document.getElementById("resultados").style.color="green";
+                    }
+                else {
+                    document.getElementById("resultados").style.color="red";
+                }
+
                 document.getElementById("resultados").innerHTML=`<div>
                     <p>Promedio: ${promedio} </p>
                 </div>`;
+
             }
 
             const notaMasAlta = (matematica, lengua, efsi) => {
@@ -77,14 +85,23 @@
                 let ef = parseInt(document.getElementById(efsi).value);
 
                 let max;
+                let materia;
                 if(matem>leng&&matem>ef){
                     max=matem;
+                    materia = "Matemática";
+                    document.getElementById("matem").style.color="blue";
                 }else if(leng>matem && leng>ef){
                     max=leng;
-                }else{max=ef;}
+                    materia = "Lengua";
+                    document.getElementById("leng").style.color="blue";
+                }else{
+                    max=ef;
+                    materia = "EFSI";
+                    document.getElementById("ef").style.color="blue";
+                }
 
-                document.getElementById("resultados").innerHTML=`<div>
-                    <p>La mayor nota fue ${max}</p>
+                document.getElementById("resultados").innerHTML+=`<div>
+                    <p>La mayor nota fue ${max}, de la materia ${materia}</p>
                 </div>`;
             }
 
@@ -110,7 +127,7 @@
 
             function validarEdad(id){
                 const nota = document.getElementById(id);
-                if (parseInt(nota.value) >= 1 && matem<=10)
+                if (parseInt(nota.value)>= 1 && parseInt(nota.value)<=10)
                     {
                         nota.style.background="green";
                     }
